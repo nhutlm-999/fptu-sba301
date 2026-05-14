@@ -2,13 +2,21 @@ package vn.edu.fpt.sba.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import vn.edu.fpt.sba.dto.ArtistDto;
+import vn.edu.fpt.sba.dto.request.ArtistRequestDto;
+import vn.edu.fpt.sba.dto.response.ArtistDetailResponseDto;
+import vn.edu.fpt.sba.dto.response.ArtistResponseDto;
 import vn.edu.fpt.sba.entity.Artist;
+import vn.edu.fpt.sba.exception.ExampleArtistException;
 import vn.edu.fpt.sba.service.ArtistService;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/artists")
@@ -19,22 +27,57 @@ public class ArtistController {
     private final ArtistService artistService;
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Get artist list")
-    public List<Artist> getAllArtists() {
-        List<Artist> artists = artistService.findAll();
-        return artists;
+    public List<ArtistDetailResponseDto> getAllArtists() {
+        return artistService.findAll();
     }
 
-    @GetMapping("/id")
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Get artist by id")
-    public List<Artist> getArtistById(Long artistId) {
-        List<Artist> artists = artistService.findArtistsByArtistId(artistId);
-        return artists; }
+    public ResponseEntity<ArtistDetailResponseDto> getArtistById(@PathVariable("id") Long artistId) {
+        ArtistDetailResponseDto artists = artistService.findArtistsByArtistId(artistId);
+        if (artists == null){
+//            return ResponseEntity.notFound().build(); // Trả về 404 nếu không tìm thấy artist
+            throw new ExampleArtistException(("Artist with id " + artistId + " not found"));
+        }
+        return ResponseEntity.ok(artists); }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED) // Luôn trả về 201 nếu không có lỗi
     @Operation(summary = "Create a artist payload")
-    public Artist createArtist(@RequestBody Artist artist) {
-        return this.artistService.save(artist); // serialize -> JSOn
+    public Artist createArtist(@Valid @RequestBody ArtistRequestDto artist) {
+        Artist newArtist = new Artist();
+        newArtist.setName(artist.name());
+        return this.artistService.save(newArtist); // serialize -> JSOn
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Artist> updateArtist(@PathVariable Long id, @RequestBody ArtistDto artist) {
+        Artist updatedArtist = artistService.update(id, artist);
+
+        if (updatedArtist == null) {
+            return ResponseEntity.notFound().build(); // Trả về 404 nếu không tìm thấy artist
+        }
+        return ResponseEntity.ok(updatedArtist); // Trả về 200 và artist đã cập nhật
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteArtist(@PathVariable Long id) {
+        ArtistDetailResponseDto artist = artistService.findArtistsByArtistId(id);
+
+        if (artist == null) {
+            return ResponseEntity.notFound().build(); // Trả về 404 nếu không tìm thấy artist
+        }
+
+        artistService.deleteById(id); // Giả sử bạn đã có phương thức delete trong service
+        return ResponseEntity.noContent().build(); // Trả về 204 No Content sau khi xóa thành công
+    }
+
+//    @ExceptionHandler(RuntimeException.class)
+//    @ResponseStatus(HttpStatus.NOT_FOUND)
+//    public Map<String, String> handleNotFound (RuntimeException ex) {
+//        return Map.of("error", ex.getMessage());
+//    }
 }

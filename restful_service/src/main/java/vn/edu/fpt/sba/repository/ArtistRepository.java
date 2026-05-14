@@ -7,9 +7,9 @@ import org.springframework.stereotype.Repository;
 import vn.edu.fpt.sba.entity.Artist;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ArtistRepository extends JpaRepository<Artist, Long> {
-
-    List<Artist> findArtistsByArtistId(Long artistId);
+    Optional<Artist> findArtistsByArtistId(Long artistId);
 }
