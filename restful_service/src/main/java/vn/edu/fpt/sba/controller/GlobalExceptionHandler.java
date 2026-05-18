@@ -1,14 +1,11 @@
 package vn.edu.fpt.sba.controller;
 
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import vn.edu.fpt.sba.dto.ApiError;
-import vn.edu.fpt.sba.dto.response.ErrorResponse;
 import vn.edu.fpt.sba.exception.ExampleArtistException;
 
 import java.time.LocalDateTime;
@@ -19,7 +16,7 @@ import java.time.LocalDateTime;
 public class GlobalExceptionHandler {
     @ExceptionHandler(ExampleArtistException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<ApiError> handleNotFound (
+    public ResponseEntity<ApiError> handleNotFound(
             RuntimeException ex) {
 
         ApiError json = new ApiError(

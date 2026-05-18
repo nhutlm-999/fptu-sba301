@@ -26,7 +26,7 @@ public class AlbumServiceImpl implements IAlbumService {
 
     @Override
     public Page<AlbumDetailResponseDto> findAll(Pageable pageable) {
-        Page<Album> albums= this.albumRepository.findAll(pageable);
+        Page<Album> albums = this.albumRepository.findAll(pageable);
 //        return albums.map(a ->
 //                new AlbumDetailResponseDto(
 //                        a.getAlbumId(),
@@ -36,7 +36,7 @@ public class AlbumServiceImpl implements IAlbumService {
         return albums.map(this::toDto);
     }
 
-    private AlbumDetailResponseDto toDto(Album album){
+    private AlbumDetailResponseDto toDto(Album album) {
         return new AlbumDetailResponseDto(
                 album.getAlbumId(),
                 album.getTitle(), new ArtistResponseDto(album.getArtist().getArtistId(), album.getArtist().getName())
@@ -45,7 +45,7 @@ public class AlbumServiceImpl implements IAlbumService {
 
     @Override
     public AlbumDetailResponseDto findAlbumByAlbumId(Long albumId) {
-        Album album =  this.albumRepository.findById(albumId).orElse(null);
+        Album album = this.albumRepository.findById(albumId).orElse(null);
         if (album == null) {
             return null;
         }

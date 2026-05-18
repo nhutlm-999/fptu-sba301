@@ -5,7 +5,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import vn.edu.fpt.sba.dto.ArtistDto;
-import vn.edu.fpt.sba.dto.response.AlbumDetailResponseDto;
 import vn.edu.fpt.sba.dto.response.AlbumResponseDto;
 import vn.edu.fpt.sba.dto.response.ArtistDetailResponseDto;
 import vn.edu.fpt.sba.entity.Artist;
@@ -18,6 +17,7 @@ import java.util.List;
 public class ArtistServiceImpl implements ArtistService {
 
     private final ArtistRepository artistRepository;
+
     public ArtistServiceImpl(ArtistRepository artistRepository) {
         this.artistRepository = artistRepository;
     }
@@ -64,7 +64,7 @@ public class ArtistServiceImpl implements ArtistService {
         artistRepository.deleteById(id);
     }
 
-    private ArtistDetailResponseDto toDto(Artist artist){
+    private ArtistDetailResponseDto toDto(Artist artist) {
         return new ArtistDetailResponseDto(
                 artist.getArtistId(),
                 artist.getName(),
