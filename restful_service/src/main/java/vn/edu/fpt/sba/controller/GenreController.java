@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import vn.edu.fpt.sba.dto.request.GenreRequestDto;
 import vn.edu.fpt.sba.dto.response.GenreResponseDto;
+import vn.edu.fpt.sba.dto.response.PageResponseDto;
 import vn.edu.fpt.sba.service.IGenreService;
 
 import java.net.URI;
@@ -29,11 +30,11 @@ public class GenreController {
     // GET /api/v1/genres?page=0&size=10&sort=name,asc
     @GetMapping
     @Operation(description = "Find all genres with pagination")
-    public ResponseEntity<Page<GenreResponseDto>> getAll(
+    public ResponseEntity<PageResponseDto<GenreResponseDto>> getAll(
             @RequestParam(defaultValue = "1", required = false) int page,
             @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page-1, size);
-        return ResponseEntity.ok(genreService.findAll(pageable));
+        return ResponseEntity.ok(PageResponseDto.of(genreService.findAll(pageable)));
     }
 
     // GET /api/v1/genres/{id}
