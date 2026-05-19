@@ -1,4 +1,4 @@
-package vn.edu.fpt.sba.dto;
+package vn.edu.fpt.sba.exception;
 
 import java.time.LocalDateTime;
 

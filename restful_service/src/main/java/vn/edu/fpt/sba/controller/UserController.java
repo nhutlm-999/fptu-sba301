@@ -23,10 +23,10 @@ public class UserController {
 
 //    @PostMapping()
 //    public ResponseEntity<User> createUser(@RequestBody User user) {
-////        User newUser = new User(user.getUsername(), user.getEmail());
+
+    /// /        User newUser = new User(user.getUsername(), user.getEmail());
 //        return  new ResponseEntity<>(user, HttpStatus.CREATED);
 //    }
-
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED) // Luôn trả về 201 nếu không có lỗi
     @Operation(summary = "Create a user payload")

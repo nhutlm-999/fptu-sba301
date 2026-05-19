@@ -9,9 +9,14 @@ import java.util.List;
 
 public interface IAlbumService {
     List<Album> findAll();
+
     Page<AlbumDetailResponseDto> findAll(Pageable pageable);
+
     AlbumDetailResponseDto findAlbumByAlbumId(Long albumId);
-    Album  save(Album album);
-    Album  update (Long id, Album album);
+
+    Album save(Album album);
+
+    Album update(Long id, Album album);
+
     Album deleteById(Long id);
 }

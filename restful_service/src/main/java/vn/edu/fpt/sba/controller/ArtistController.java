@@ -1,22 +1,25 @@
 package vn.edu.fpt.sba.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import vn.edu.fpt.sba.exception.ApiError;
 import vn.edu.fpt.sba.dto.ArtistDto;
 import vn.edu.fpt.sba.dto.request.ArtistRequestDto;
 import vn.edu.fpt.sba.dto.response.ArtistDetailResponseDto;
-import vn.edu.fpt.sba.dto.response.ArtistResponseDto;
 import vn.edu.fpt.sba.entity.Artist;
 import vn.edu.fpt.sba.exception.ExampleArtistException;
 import vn.edu.fpt.sba.service.ArtistService;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/artists")
@@ -29,6 +32,16 @@ public class ArtistController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Get artist list")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200",
+                    description = "Thành công",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ArtistDetailResponseDto.class))),
+            @ApiResponse(responseCode = "401",
+                    description = "Chưa đăng nhập",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ApiError.class)))
+    })
     public List<ArtistDetailResponseDto> getAllArtists() {
         return artistService.findAll();
     }
@@ -38,11 +51,12 @@ public class ArtistController {
     @Operation(summary = "Get artist by id")
     public ResponseEntity<ArtistDetailResponseDto> getArtistById(@PathVariable("id") Long artistId) {
         ArtistDetailResponseDto artists = artistService.findArtistsByArtistId(artistId);
-        if (artists == null){
+        if (artists == null) {
 //            return ResponseEntity.notFound().build(); // Trả về 404 nếu không tìm thấy artist
             throw new ExampleArtistException(("Artist with id " + artistId + " not found"));
         }
-        return ResponseEntity.ok(artists); }
+        return ResponseEntity.ok(artists);
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED) // Luôn trả về 201 nếu không có lỗi
