@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.fpt.sba.exception.ApiError;
+
 import vn.edu.fpt.sba.dto.ArtistDto;
 import vn.edu.fpt.sba.dto.request.ArtistRequestDto;
 import vn.edu.fpt.sba.dto.response.ArtistDetailResponseDto;

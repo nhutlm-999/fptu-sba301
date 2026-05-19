@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import vn.edu.fpt.sba.exception.ExampleArtistException;
+
 import java.time.LocalDateTime;
 
 @RestControllerAdvice
