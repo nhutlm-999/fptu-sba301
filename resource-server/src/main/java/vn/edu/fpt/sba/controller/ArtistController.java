@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.fpt.sba.exception.ApiError;
 
@@ -26,11 +27,11 @@ import java.util.List;
 @RequestMapping("/api/v1/artists")
 @Data
 @Tag(name = "Artists", description = " management endpoints")
-
 public class ArtistController {
     private final ArtistService artistService;
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Get artist list")
     @ApiResponses({
