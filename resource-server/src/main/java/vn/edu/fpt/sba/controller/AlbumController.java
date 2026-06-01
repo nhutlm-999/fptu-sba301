@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.fpt.sba.dto.response.AlbumDetailResponseDto;
 import vn.edu.fpt.sba.service.IAlbumService;
@@ -29,6 +30,7 @@ public class AlbumController {
 //    }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @Operation(summary = "Get album by id")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Thành công"),

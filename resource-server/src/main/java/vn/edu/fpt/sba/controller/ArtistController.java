@@ -21,6 +21,7 @@ import vn.edu.fpt.sba.entity.Artist;
 import vn.edu.fpt.sba.exception.ExampleArtistException;
 import vn.edu.fpt.sba.service.ArtistService;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -31,7 +32,11 @@ public class ArtistController {
     private final ArtistService artistService;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    /*
+    * Đề trích xuất dc các thông tin custom trong JWT (role, gmail)
+    * Ta cần định nghĩa converter
+    * */
+    @PreAuthorize("hasAnyAuthority('ROLE_USER','ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Get artist list")
     @ApiResponses({
@@ -44,7 +49,8 @@ public class ArtistController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ApiError.class)))
     })
-    public List<ArtistDetailResponseDto> getAllArtists() {
+    public List<ArtistDetailResponseDto> getAllArtists(Principal principal) {
+        System.out.println("Authenticated user: " + principal.getName());
         return artistService.findAll();
     }
 
