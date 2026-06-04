@@ -1,4 +1,4 @@
-git import {Container} from "react-bootstrap";
+import {Container} from "react-bootstrap";
 import {ArtistList} from "../components/artist/ArtistList.jsx";
 import axios from "axios";
 import {useEffect, useState} from "react";
