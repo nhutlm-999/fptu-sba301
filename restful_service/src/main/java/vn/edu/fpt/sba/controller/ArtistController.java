@@ -23,7 +23,7 @@ import vn.edu.fpt.sba.service.ArtistService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/artists")
+@RequestMapping("/api/v1/artists")
 @Data
 @Tag(name = "Artists", description = " management endpoints")
 
@@ -31,6 +31,7 @@ public class ArtistController {
     private final ArtistService artistService;
 
     @GetMapping
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Get artist list")
     @ApiResponses({

@@ -19,7 +19,7 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(
                         auth -> auth
-                                .requestMatchers("/api/auth/**").permitAll()
+                                .requestMatchers("/api/auth/**", "/api/v1/artists/**").permitAll()
                                 .anyRequest().authenticated()) // Require authentication for all requests
 //                .httpBasic(Customizer.withDefaults()) // Use HTTP Basic authentication
                 .formLogin(AbstractHttpConfigurer::disable) // Disable form loginocommit
