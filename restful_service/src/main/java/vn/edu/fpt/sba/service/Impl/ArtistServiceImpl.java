@@ -42,8 +42,8 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
-    public Page<Artist> findAll(Pageable pageable) {
-        return this.artistRepository.findAll(pageable);
+    public Page<ArtistDetailResponseDto> findAll(Pageable pageable) {
+        return this.artistRepository.findAll(pageable).map(this::toDto);
     }
 
     @Override
@@ -65,12 +65,9 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     private ArtistDetailResponseDto toDto(Artist artist) {
-        return new ArtistDetailResponseDto(
-                artist.getArtistId(),
-                artist.getName(),
-                CollectionUtils.isEmpty(artist.getAlbum()) ? List.of() : artist.getAlbum().stream().map(al -> new AlbumResponseDto(
-                        al.getAlbumId(),
-                        al.getTitle())).toList()
-        );
+        List<AlbumResponseDto> albums = artist.getAlbum().stream().map(
+                album -> new AlbumResponseDto(album.getAlbumId(), album.getTitle())
+        ).toList();
+        return new ArtistDetailResponseDto(artist.getArtistId(), artist.getName(), albums);
     }
 }

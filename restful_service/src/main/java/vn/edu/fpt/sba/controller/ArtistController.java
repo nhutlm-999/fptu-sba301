@@ -8,9 +8,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.Data;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import vn.edu.fpt.sba.dto.response.AlbumDetailResponseDto;
 import vn.edu.fpt.sba.exception.ApiError;
 
 import vn.edu.fpt.sba.dto.ArtistDto;
@@ -31,7 +35,7 @@ public class ArtistController {
     private final ArtistService artistService;
 
     @GetMapping
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
+//    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Get artist list")
     @ApiResponses({
@@ -44,8 +48,16 @@ public class ArtistController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ApiError.class)))
     })
-    public List<ArtistDetailResponseDto> getAllArtists() {
-        return artistService.findAll();
+//    public List<ArtistDetailResponseDto> getAllArtists() {
+//        return artistService.findAll();
+//    }
+    public ResponseEntity<Page<ArtistDetailResponseDto>> findAll(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        // Handle validation for page and size parameters...
+        Pageable pageable = PageRequest.of(page-1, size);
+        return new ResponseEntity<>(artistService.findAll(pageable), HttpStatus.OK);
+
     }
 
     @GetMapping("/{id}")

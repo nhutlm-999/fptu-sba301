@@ -3,13 +3,6 @@ import {ArtistList} from "../components/artist/ArtistList.jsx";
 import axios from "axios";
 import {useEffect, useState} from "react";
 
-// const source = [
-//     {id: 1, name: "AC/DC"},
-//     {id: 2, name: "Olivia Rodrigo"},
-//     {id: 3, name: "Taylor Swift"}
-// ];
-
-
 export const ArtistPage = () => {
     const [artists, setArtists] = useState([]);
 
@@ -31,8 +24,8 @@ export const ArtistPage = () => {
     useEffect(() => {
         fetch("http://localhost:8080/api/v1/artists")
         .then(res => res.json()) // res là http response(header,...)
-        .then(data => setArtists(data));
-    })
+        .then(data => setArtists(data.content));
+    }, []);
 
 
 

@@ -13,7 +13,7 @@ public interface ArtistService {
 
     Artist save(Artist artist);
 
-    Page<Artist> findAll(Pageable pageable);
+    Page<ArtistDetailResponseDto> findAll(Pageable pageable);
 
     List<ArtistDetailResponseDto> findAll();
 

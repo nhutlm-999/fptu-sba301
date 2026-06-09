@@ -26,7 +26,7 @@ export const ArtistList = ({source}) => {
                     <td>{user.artistId}</td>
                     <td>{user.name}</td>
                     <td>
-                        <Button className={"me-2"} variant={"primary"} onClick={() => alert(`Edit artist ${user.name}`)} size="sm">Edit</Button>
+                        <Button className={"me-2"} variant={"primary"} href={'/them-moi-nghe-si?id=${user.artistId}'} size="sm">Edit</Button>
                         <Button variant={"danger"} onClick={() => alert("Delete artist")} size={'sm'}>Delete</Button>
                     </td>
                 </tr>) : <tr><td colSpan={3} >There is no Artist</td></tr>}
