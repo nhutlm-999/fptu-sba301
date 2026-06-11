@@ -1,7 +1,8 @@
-import {Container} from "react-bootstrap";
+import {Button, Container} from "react-bootstrap";
 import {ArtistList} from "../components/artist/ArtistList.jsx";
 import axios from "axios";
 import {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 
 export const ArtistPage = () => {
     const [artists, setArtists] = useState([]);
@@ -32,6 +33,9 @@ export const ArtistPage = () => {
     return (
         <Container>
             <h1>Artist Page</h1>
+            <Button type={"button"} variant={"success"} className={"m-3"} as={Link} to={"/them-moi-nghe-si"}>
+                Add new artist
+            </Button>
             <ArtistList source={artists} />
         </Container>
     )

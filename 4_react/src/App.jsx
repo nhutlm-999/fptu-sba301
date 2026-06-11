@@ -18,6 +18,7 @@ function App() {
                     {/*<Route path={'/danh-sach-nghe-si'} element={<ArtistList source={source}/>}/>*/}
                     <Route path={'/danh-sach-nghe-si'} element={<ArtistPage/>}/>
                     <Route path={'/them-moi-nghe-si'} element={<ArtistForm/>}/>
+                    <Route path={'/chinh-sua-nghe-si/:id'} element={<ArtistForm/>}/>
                 </Routes>
             </main>
         </>

@@ -26,7 +26,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         auth -> auth
                                 .requestMatchers("/api/auth/**", "/api/v1/artists/**").permitAll()
-                                .requestMatchers("error").permitAll()
+//                                .requestMatchers("error").permitAll()
                                 .anyRequest().authenticated()) // Require authentication for all requests
 //                .httpBasic(Customizer.withDefaults()) // Use HTTP Basic authentication
                 .formLogin(AbstractHttpConfigurer::disable) // Disable form loginocommit
@@ -53,7 +53,7 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new org.springframework.web.cors.UrlBasedCorsConfigurationSource();
 
         // Đăng kí tất cả URL về config trên
-        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        source.registerCorsConfiguration("/**", corsConfiguration);
         return source;
     }
 
