@@ -62,7 +62,7 @@ export function ArtistForm() {
                 }
 
                 if (!res.ok) {
-                    let message = "Fail to create artist.";
+                    let message = "Fail to edit artist.";
 
                     // const data = await res.json();
                     // console.log("Server returns: ", data); // In ra để xem cấu trúc

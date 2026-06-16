@@ -29,7 +29,7 @@ export const ArtistList = ({source}) => {
                     <td>
                         {/*String interpolate*/}
                         <Button className={"me-2"} variant={"primary"} as={Link} to={`/chinh-sua-nghe-si/${user.artistId}`} size="sm">Edit</Button>
-                        <Button variant={"danger"} onClick={() => alert("Delete artist")} size={'sm'}>Delete</Button>
+                        <Button variant={"danger"} as={Link} to={`/xoa-nghe-si/${user.artistId}`} size={'sm'}>Delete</Button>
                     </td>
                 </tr>) : <tr><td colSpan={3} >There is no Artist</td></tr>}
             </tbody>

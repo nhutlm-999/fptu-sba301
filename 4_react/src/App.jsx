@@ -5,6 +5,7 @@ import {HomePage} from "./page/HomePage.jsx";
 import {ArtistList} from "./components/artist/ArtistList.jsx";
 import {ArtistForm} from "./components/artist/ArtistForm.jsx";
 import {ArtistPage} from "./page/ArtistPage.jsx";
+import ArtistDeleteForm from "./components/artist/ArtistDeleteForm.jsx";
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
                     <Route path={'/danh-sach-nghe-si'} element={<ArtistPage/>}/>
                     <Route path={'/them-moi-nghe-si'} element={<ArtistForm/>}/>
                     <Route path={'/chinh-sua-nghe-si/:id'} element={<ArtistForm/>}/>
+                    <Route path={'/xoa-nghe-si/:id'} element={<ArtistDeleteForm/>}/>
                 </Routes>
             </main>
         </>
