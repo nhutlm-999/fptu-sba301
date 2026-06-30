@@ -25,8 +25,8 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults()) // CORS tìm config mặc định -> tìm bean dc override bên
                 .authorizeHttpRequests(
                         auth -> auth
-                                .requestMatchers("/api/auth/**", "/api/v1/artists/**").permitAll()
-//                                .requestMatchers("error").permitAll()
+                                .requestMatchers("/api/auth/**", "/api/v1/**").permitAll()
+                                .requestMatchers("error").permitAll()
                                 .anyRequest().authenticated()) // Require authentication for all requests
 //                .httpBasic(Customizer.withDefaults()) // Use HTTP Basic authentication
                 .formLogin(AbstractHttpConfigurer::disable) // Disable form loginocommit

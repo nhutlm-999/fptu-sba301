@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.fpt.sba.dto.response.AlbumDetailResponseDto;
+import vn.edu.fpt.sba.dto.response.PageResponseDto;
 import vn.edu.fpt.sba.exception.ApiError;
 
 import vn.edu.fpt.sba.dto.ArtistDto;
@@ -51,12 +52,12 @@ public class ArtistController {
 //    public List<ArtistDetailResponseDto> getAllArtists() {
 //        return artistService.findAll();
 //    }
-    public ResponseEntity<Page<ArtistDetailResponseDto>> findAll(
-            @RequestParam(defaultValue = "1") int page,
+    public ResponseEntity<PageResponseDto<ArtistDetailResponseDto>> findAll(
+            @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
         // Handle validation for page and size parameters...
-        Pageable pageable = PageRequest.of(page-1, size);
-        return new ResponseEntity<>(artistService.findAll(pageable), HttpStatus.OK);
+        Pageable pageable = PageRequest.of(page, size);
+        return new ResponseEntity<>(PageResponseDto.of(artistService.findAll(pageable)), HttpStatus.OK);
 
     }
 

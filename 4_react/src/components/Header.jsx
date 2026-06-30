@@ -1,9 +1,13 @@
 import {Container, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import {useTheme} from "../context/ThemeContext.jsx";
 
 const Header = () => {
+    const {theme, toggle} = useTheme();
+
+    console.log("Current theme:", theme);
     return (
-        <Navbar expand="lg" className="bg-body-tertiary m-3">
+        <Navbar bg={theme} variant={theme} expand="lg" className="bg-body-tertiary m-3">
             <Container> {/* Container mở ra Grid System*/}
                 <Navbar.Brand href="#">FPT Music Store</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
