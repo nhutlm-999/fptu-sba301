@@ -4,7 +4,6 @@ import {Link} from "react-router-dom";
 export const ArtistList = ({source}) => {
     return (
         <Container>
-            {/*<h1>Artist List</h1>*/}
         <Table striped bordered hover>
             <thead>
             <tr>
