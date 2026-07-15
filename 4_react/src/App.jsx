@@ -7,7 +7,7 @@ import {ArtistForm} from "./components/artist/ArtistForm.jsx";
 import {ArtistPage} from "./page/ArtistPage.jsx";
 import ArtistDeleteForm from "./components/artist/ArtistDeleteForm.jsx";
 import {ThemeProvider} from "./context/ThemeContext.jsx";
-import {AuthCallbackHandler} from "./auth/AuthContext.jsx";
+// import {AuthCallbackHandler} from "./auth/AuthContext.jsx";
 import {RequireAuth} from "./auth/RequireAuth.jsx";
 
 
@@ -15,7 +15,7 @@ function App() {
 
     return (
         <> {/*fragment*/}
-            <AuthCallbackHandler>
+            {/*<AuthCallbackHandler>*/}
                 <ThemeProvider>
                     <Header/>
                 </ThemeProvider>
@@ -29,7 +29,7 @@ function App() {
                         <Route path={'/xoa-nghe-si/:id'} element={<ArtistDeleteForm/>}/>
                     </Routes>
                 </main>
-            </AuthCallbackHandler>
+            {/*</AuthCallbackHandler>*/}
         </>
     )
 }
